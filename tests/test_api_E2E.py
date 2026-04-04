@@ -64,3 +64,22 @@ def test_e2e_create_and_get_item():
     assert item["statistics"]["likes"] == payload["statistics"]["likes"]
     assert item["statistics"]["viewCount"] == payload["statistics"]["viewCount"]
     assert item["statistics"]["contacts"] == payload["statistics"]["contacts"]
+
+    delete = requests.delete(
+        f"{BASE_URL}/api/2/item/{item_id}",
+        headers=headers
+    )
+
+    print("DELETE STATUS:", delete.status_code)
+    print("DELETE RESPONSE:", delete.text)
+
+    assert delete.status_code in (200, 404)
+
+    get = requests.get(
+        f"{BASE_URL}/api/1/item/{item_id}",
+        headers=headers
+    )
+
+    print("GET AFTER DELETE:", get.status_code)
+
+    assert get.status_code in (404, 400)
