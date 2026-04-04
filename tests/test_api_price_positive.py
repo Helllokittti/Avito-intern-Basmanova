@@ -1,0 +1,42 @@
+import random
+import requests
+
+BASE_URL = "https://qa-internship.avito.com"
+
+
+def positive_price_should_return_200(price):
+    seller_id = random.randint(111111, 999999)
+
+    payload = {
+        "sellerID": seller_id,
+        "name": "positive price test",
+        "price": price,
+        "statistics": {
+            "likes": 1,
+            "viewCount": 1,
+            "contacts": 1
+        }
+    }
+
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+    }
+
+    response = requests.post(
+        f"{BASE_URL}/api/1/item",
+        json=payload,
+        headers=headers
+    )
+
+    print("STATUS:", response.status_code)
+    print("RESPONSE:", response.text)
+
+    assert response.status_code == 200, response.text
+
+
+def test_prices():
+    prices = [1, 1000, 100000000, 99999999999999]
+    for price in prices:
+        print(price)
+        positive_price_should_return_200(price)
