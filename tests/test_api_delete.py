@@ -45,6 +45,8 @@ def test_delete_item_v2():
 
     print("ITEM ID:", item_id)
 
+## позитивный сценарий удаления существующего объявления
+
     delete = requests.delete(
         f"{BASE_URL}/api/2/item/{item_id}",
         headers=headers
@@ -63,3 +65,26 @@ def test_delete_item_v2():
     print("GET AFTER DELETE:", get.status_code)
 
     assert get.status_code in (404, 400)
+
+## негативный сценарий удаления несуществующего объявления
+    delete = requests.delete(
+        f"{BASE_URL}/api/2/item/{item_id}",
+        headers=headers
+    )
+
+    print("DELETE STATUS:", delete.status_code)
+    print("DELETE RESPONSE:", delete.text)
+
+    assert delete.status_code == 404
+
+## негативный сценарий удаления некорректного айди объявления
+
+    delete = requests.delete(
+        f"{BASE_URL}/api/2/item/aaabbb",
+        headers=headers
+    )
+
+    print("DELETE STATUS:", delete.status_code)
+    print("DELETE RESPONSE:", delete.text)
+
+    assert delete.status_code == 400
