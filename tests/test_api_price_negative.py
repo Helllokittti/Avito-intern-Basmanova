@@ -4,13 +4,13 @@ import requests
 BASE_URL = "https://qa-internship.avito.com"
 
 
-def test_negative_price_should_return_400():
+def negative_price_should_return_400(price):
     seller_id = random.randint(111111, 999999)
 
     payload = {
         "sellerID": seller_id,
         "name": "negative price test",
-        "price": -100,
+        "price": price,
         "statistics": {
             "likes": 1,
             "viewCount": 1,
@@ -33,3 +33,11 @@ def test_negative_price_should_return_400():
     print("RESPONSE:", response.text)
 
     assert response.status_code == 400, response.text
+
+
+def test_prices():
+    prices = [0, -0.5, -100, -1]
+    for price in prices:
+        print(price)
+        negative_price_should_return_400(price)
+
