@@ -1,4 +1,9 @@
 # Avito-intern-Basmanova
+Автор: Басманова Дарья Кирилловна
+Email: db1406@yandex.ru
+Telegram: @helllokitttii
+
+
 # API Тесты для Avito Микросервиса
 # Avito intern Basmanova
 
